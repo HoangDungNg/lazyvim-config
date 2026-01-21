@@ -1,20 +1,23 @@
 return {
   "stevearc/conform.nvim",
   opts = function(_, opts)
-    local function has_file(files)
-      return function(ctx)
-        local root = ctx.root or vim.fn.getcwd()
+    -- Find config files by searching upward from the current buffer's directory
+    local function has_upwards(files)
+      return function(bufnr)
+        local start = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr))
         for _, f in ipairs(files) do
-          if vim.uv.fs_stat(root .. "/" .. f) then
-            return true
+          local found = vim.fs.find(f, { path = start, upward = true })[1]
+          if found then
+            return true, found
           end
         end
         return false
       end
     end
 
-    -- Prefer Biome if biome config exists; otherwise use Prettier if prettier config exists
     opts.formatters_by_ft = opts.formatters_by_ft or {}
+
+    -- Astro: keep LSP formatting (change if you want dprint/biome/prettier)
     opts.formatters_by_ft.astro = { "lsp_format" }
 
     local js_like = {
@@ -28,27 +31,28 @@ return {
 
     for _, ft in ipairs(js_like) do
       opts.formatters_by_ft[ft] = function(bufnr)
-        local ctx = require("conform").get_formatter_info("prettier", bufnr)
-        ctx = ctx or { root = vim.fs.root(bufnr, { ".git" }) or vim.fn.getcwd() }
+        local has_dprint = has_upwards({ "dprint.json" })
+        local has_biome = has_upwards({ "biome.json", "biome.jsonc" })
+        local has_prettier = has_upwards({
+          ".prettierrc",
+          ".prettierrc.json",
+          ".prettierrc.yml",
+          ".prettierrc.yaml",
+          ".prettierrc.js",
+          ".prettierrc.cjs",
+          ".prettierrc.mjs",
+          "prettier.config.js",
+          "prettier.config.cjs",
+          "prettier.config.mjs",
+        })
 
-        if has_file({ "biome.json", "biome.jsonc" })(ctx) then
+        if has_dprint(bufnr) then
+          return { "dprint" }
+        end
+        if has_biome(bufnr) then
           return { "biome" }
         end
-
-        if
-          has_file({
-            ".prettierrc",
-            ".prettierrc.json",
-            ".prettierrc.yml",
-            ".prettierrc.yaml",
-            ".prettierrc.js",
-            ".prettierrc.cjs",
-            ".prettierrc.mjs",
-            "prettier.config.js",
-            "prettier.config.cjs",
-            "prettier.config.mjs",
-          })(ctx)
-        then
+        if has_prettier(bufnr) then
           return { "prettier" }
         end
 
