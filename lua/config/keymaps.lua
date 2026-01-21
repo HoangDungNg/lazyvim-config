@@ -6,24 +6,24 @@ local opts = { noremap = true, silent = true }
 
 -- NeoTree keymaps
 -- NeoTree filesystem
-vim.keymap.set("n", "<leader>Nf", function()
+vim.keymap.set("n", "<leader>e", function()
   require("neo-tree.command").execute({ source = "filesystem", toggle = true, position = "left" })
 end, { desc = "NeoTree: Files" })
 
 -- NeoTree buffers
-vim.keymap.set("n", "<leader>Nb", function()
-  require("neo-tree.command").execute({ source = "buffers", toggle = true, position = "left" })
-end, { desc = "NeoTree: Buffers" })
-
--- NeoTree Git status
-vim.keymap.set("n", "<leader>Ng", function()
-  require("neo-tree.command").execute({ source = "git_status", toggle = true, position = "left" })
-end, { desc = "NeoTree: Git Status" })
-
--- Close NeoTree
-vim.keymap.set("n", "<leader>Nq", function()
-  vim.cmd("Neotree close")
-end, { desc = "NeoTree: Close" })
+-- vim.keymap.set("n", "<leader>Nb", function()
+--   require("neo-tree.command").execute({ source = "buffers", toggle = true, position = "left" })
+-- end, { desc = "NeoTree: Buffers" })
+--
+-- -- NeoTree Git status
+-- vim.keymap.set("n", "<leader>Ng", function()
+--   require("neo-tree.command").execute({ source = "git_status", toggle = true, position = "left" })
+-- end, { desc = "NeoTree: Git Status" })
+--
+-- -- Close NeoTree
+-- vim.keymap.set("n", "<leader>Nq", function()
+--   vim.cmd("Neotree close")
+-- end, { desc = "NeoTree: Close" })
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
@@ -46,8 +46,8 @@ keymap.set("n", "sv", ":vsplit<Return>", opts)
 -- Move window
 keymap.set("n", "sh", "<C-w>h")
 keymap.set("n", "sk", "<C-w>k")
-keymap.set("n", "sj", "<C-w>j")
 keymap.set("n", "sl", "<C-w>l")
+keymap.set("n", "sj", "<C-w>j")
 
 -- Resize window using Alt + arrow keys
 vim.keymap.set("n", "<M-Left>", "<C-w><", { desc = "Resize window left" })

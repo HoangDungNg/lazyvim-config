@@ -32,6 +32,6 @@ vim.opt.path:append({ "**" })
 vim.opt.wildignore:append({ "*/node_modules/*" })
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = ""
-
+vim.opt.termguicolors = true
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })
