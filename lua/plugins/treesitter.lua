@@ -19,6 +19,7 @@ return {
         "lua",
         "tsx",
         "html",
+        "astro",
       },
       query_linter = {
         enable = true,

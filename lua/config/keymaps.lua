@@ -56,8 +56,8 @@ vim.keymap.set("n", "<M-Up>", "<C-w>+", { desc = "Resize window up" })
 vim.keymap.set("n", "<M-Down>", "<C-w>-", { desc = "Resize window down" })
 
 -- Go back/forward
-vim.keymap.set("n", "g<Right>", "<C-i>", { noremap = true, desc = "Jump forward" })
-vim.keymap.set("n", "g<Left>", "<C-o>", { noremap = true, desc = "Jump backward" })
+vim.keymap.set("n", "gi", "<C-i>", { noremap = true, desc = "Jump forward" })
+vim.keymap.set("n", "go", "<C-o>", { noremap = true, desc = "Jump backward" })
 
 -- Diagnostics
 keymap.set("n", "<C-j>", function()
