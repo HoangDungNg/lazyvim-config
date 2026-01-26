@@ -50,10 +50,10 @@ keymap.set("n", "sl", "<C-w>l")
 keymap.set("n", "sj", "<C-w>j")
 
 -- Resize window using Alt + arrow keys
-vim.keymap.set("n", "<M-Left>", "<C-w><", { desc = "Resize window left" })
-vim.keymap.set("n", "<M-Right>", "<C-w>>", { desc = "Resize window right" })
-vim.keymap.set("n", "<M-Up>", "<C-w>+", { desc = "Resize window up" })
-vim.keymap.set("n", "<M-Down>", "<C-w>-", { desc = "Resize window down" })
+-- vim.keymap.set("n", "<M-Left>", "<C-w><", { desc = "Resize window left" })
+-- vim.keymap.set("n", "<M-Right>", "<C-w>>", { desc = "Resize window right" })
+-- vim.keymap.set("n", "<M-Up>", "<C-w>+", { desc = "Resize window up" })
+-- vim.keymap.set("n", "<M-Down>", "<C-w>-", { desc = "Resize window down" })
 
 -- Go back/forward
 vim.keymap.set("n", "gi", "<C-i>", { noremap = true, desc = "Jump forward" })

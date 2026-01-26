@@ -7,8 +7,8 @@ return {
     vim.g.VM_maps = {
       ["Find Under"] = "<C-n>",
       ["Find Subword Under"] = "<C-n>",
-      ["Add Cursor Down"] = "w<Down>",
-      ["Add Cursor Up"] = "w<Up>",
+      ["Add Cursor Down"] = "<M-Down>",
+      ["Add Cursor Up"] = "<M-Up>",
     }
   end,
 }

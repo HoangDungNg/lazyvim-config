@@ -13,6 +13,7 @@ return {
         "html",
         "ts_ls",
         "biome",
+        "stylelint-lsp",
       },
       -- automatic_enable = true, -- default is enabled
     },
@@ -46,6 +47,7 @@ return {
       inlay_hints = { enabled = true },
 
       servers = {
+        stylelint_lsp = {},
         eslint = {
           root_dir = function(...)
             local util = require("lspconfig.util")
@@ -73,7 +75,13 @@ return {
           end,
         },
 
-        cssls = {},
+        cssls = {
+          settings = {
+            css = { validate = false },
+            scss = { validate = false },
+            less = { validate = false },
+          },
+        },
         tailwindcss = {
           settings = {
             tailwindCSS = {
