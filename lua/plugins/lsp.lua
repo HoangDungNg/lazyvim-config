@@ -13,7 +13,7 @@ return {
         "html",
         "ts_ls",
         "biome",
-        "stylelint-lsp",
+        "stylelint_lsp",
       },
       -- automatic_enable = true, -- default is enabled
     },
@@ -47,7 +47,17 @@ return {
       inlay_hints = { enabled = true },
 
       servers = {
-        stylelint_lsp = {},
+
+        stylelint_lsp = {
+          settings = {
+            stylelintplus = {
+              autoFixOnSave = true, -- apply stylelint --fix when you save
+              validateOnSave = true, -- optional; auto-enabled by autoFixOnSave
+              validateOnType = true, -- default true; keep diagnostics live
+            },
+          },
+        },
+
         eslint = {
           root_dir = function(...)
             local util = require("lspconfig.util")
@@ -76,12 +86,44 @@ return {
         },
 
         cssls = {
+          root_dir = function(fname)
+            local util = require("lspconfig.util")
+
+            -- First: find the normal project root
+            local root = util.root_pattern(".git", "package.json")(fname)
+            if not root then
+              return nil
+            end
+
+            -- Then: if Stylelint config exists at/above root, disable cssls
+            local has_stylelint = util.root_pattern(
+              "stylelint.config.js",
+              "stylelint.config.cjs",
+              "stylelint.config.mjs",
+              "stylelint.config.ts",
+              ".stylelintrc",
+              ".stylelintrc.json",
+              ".stylelintrc.yaml",
+              ".stylelintrc.yml",
+              ".stylelintrc.js",
+              ".stylelintrc.cjs",
+              ".stylelintrc.mjs"
+            )(fname)
+
+            if has_stylelint then
+              return nil -- prevents cssls from starting
+            end
+
+            return root
+          end,
+
           settings = {
             css = { validate = false },
             scss = { validate = false },
             less = { validate = false },
           },
         },
+
         tailwindcss = {
           settings = {
             tailwindCSS = {
