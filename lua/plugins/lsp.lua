@@ -89,6 +89,7 @@ return {
         },
 
         stylelint_lsp = {
+          filetypes = { "css", "scss", "sass", "less" },
           settings = {
             stylelintplus = {
               autoFixOnSave = true,

@@ -2,10 +2,12 @@ return {
   "stevearc/conform.nvim",
   opts = function(_, opts)
     -- Find config files by searching upward from the current buffer's directory
+
     local function has_upwards(files)
       return function(bufnr)
         local start = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr))
         for _, f in ipairs(files) do
+          -- pick the NEAREST match
           local found = vim.fs.find(f, { path = start, upward = true })[1]
           if found then
             return true, found
