@@ -79,6 +79,7 @@ return {
       "typescriptreact",
       "json",
       "jsonc",
+      "svg",
     }
 
     for _, ft in ipairs(js_like) do
