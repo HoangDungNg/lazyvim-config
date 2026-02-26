@@ -127,40 +127,10 @@ return {
         },
 
         cssls = {
-          root_dir = function(fname)
-            local util = require("lspconfig.util")
-
-            local root = util.root_pattern(".git", "package.json")(fname)
-            if not root then
-              return nil
-            end
-
-            local has_stylelint = util.root_pattern(
-              "stylelint.config.js",
-              "stylelint.config.cjs",
-              "stylelint.config.mjs",
-              "stylelint.config.ts",
-              ".stylelintrc",
-              ".stylelintrc.json",
-              ".stylelintrc.yaml",
-              ".stylelintrc.yml",
-              ".stylelintrc.js",
-              ".stylelintrc.cjs",
-              ".stylelintrc.mjs"
-            )(fname)
-
-            if has_stylelint then
-              return nil
-            end
-
-            return root
+          on_attach = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
           end,
-
-          settings = {
-            css = { validate = false },
-            scss = { validate = false },
-            less = { validate = false },
-          },
         },
 
         tailwindcss = {

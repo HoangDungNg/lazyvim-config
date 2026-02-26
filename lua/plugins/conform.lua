@@ -111,7 +111,7 @@ return {
         return { lsp_format = "first" }
       end
 
-      return {}
+      return { "prettier" }
     end
 
     opts.formatters_by_ft.css = pick_css_formatter
