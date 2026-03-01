@@ -82,6 +82,7 @@ return {
       "svg",
     }
 
+    opts.formatters_by_ft["nix"] = { "alejandra" }
     for _, ft in ipairs(js_like) do
       opts.formatters_by_ft[ft] = pick_js_formatter
     end
