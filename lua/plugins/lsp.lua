@@ -98,7 +98,7 @@ return {
           filetypes = { "css", "scss", "sass", "less" },
           settings = {
             stylelintplus = {
-              autoFixOnSave = true,
+              autoFixOnSave = false,
               validateOnSave = true,
               validateOnType = true,
             },

@@ -94,7 +94,7 @@ return {
       if has_dprint(bufnr) then
         if use_lsp then
           -- Stylelint (LSP) first, then dprint
-          return { "dprint", lsp_format = "first" }
+          return { "stylelint", "dprint" }
         end
         return { "dprint" }
       end
