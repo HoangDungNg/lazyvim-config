@@ -155,6 +155,9 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
       {
         "s1n7ax/nvim-window-picker", -- for open_with_window_picker keymaps
         version = "2.*",
@@ -205,6 +208,7 @@ return {
           ["gp"] = "git_push",
           ["gr"] = "git_revert_file",
           ["gR"] = "git_restore_file",
+          ["<2-LeftMouse>"] = "open",
         },
       },
     },
