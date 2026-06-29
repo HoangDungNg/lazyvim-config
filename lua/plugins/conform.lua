@@ -60,10 +60,10 @@ return {
         return { "biome" }
       end
       if has_prettier(bufnr) then
-        return { "prettier" }
+        return { "eslint_d", "prettier" }
       end
       -- No config found -> still okay; prettier as default
-      return { "prettier" }
+      return { "eslint_d", "prettier" }
     end
 
     opts.formatters_by_ft.astro = function(bufnr)
