@@ -1,11 +1,11 @@
 return {
-  "L3MON4D3/LuaSnip",
---   lazy = false,
-  config = function()
-    require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/lua/snippets/"})
-    require("luasnip").config.setup {
-      update_events = 'TextChanged,TextChangedI',
-      enable_autosnippets = true,
-    }
-  end,
+  {
+    "L3MON4D3/LuaSnip",
+    opts = function(_, opts)
+      local luasnip = require("luasnip")
+      -- Force TypeScript React files to inherit Javascript/JSX snippets
+      luasnip.filetype_extend("typescript", { "javascript" })
+      luasnip.filetype_extend("typescriptreact", { "javascriptreact", "javascript" })
+    end,
+  },
 }

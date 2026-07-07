@@ -1,3 +1,27 @@
+local function ts_root(fname)
+  local matches = vim.fs.find({ "tsconfig.json", "jsconfig.json" }, {
+    path = vim.fs.dirname(fname),
+    upward = true,
+  })
+
+  for _, config in ipairs(matches) do
+    local root = vim.fs.dirname(config)
+
+    -- Prefer package roots in monorepos.
+    if root:match("/packages/[^/]+$") or root:match("/apps/[^/]+$") or root:match("/libs/[^/]+$") then
+      return root
+    end
+  end
+
+  -- Fallback for normal non-monorepo projects:
+  local config = matches[1]
+  if config then
+    return vim.fs.dirname(config)
+  end
+
+  return nil
+end
+
 return {
   -- tools
   { "mason-org/mason.nvim", opts = {} },
@@ -158,10 +182,15 @@ return {
           },
         },
 
+        -- vtsls = { enabled = false },
+        -- ts_ls = { enabled = false },
+        -- tsserver = { enabled = false },
+
         ts_ls = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
+          init_options = {
+            maxTsServerMemory = 8192,
+          },
+          root_dir = ts_root,
           single_file_support = false,
           settings = {
             typescript = {
