@@ -33,5 +33,5 @@ vim.opt.wildignore:append({ "*/node_modules/*" })
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = "a"
 vim.opt.termguicolors = true
--- Add asterisks in block comments
+-- Add asterisks in block comments 123
 vim.opt.formatoptions:append({ "r" })
