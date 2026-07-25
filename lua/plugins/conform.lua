@@ -21,6 +21,12 @@ return {
     opts.formatters_by_ft.lua = { "stylua" }
 
     -- opts.format_on_save = opts.format_on_save or true
+    local has_oxfmt = has_upwards({
+      ".oxfmtrc",
+      ".oxfmtrc.json",
+      "oxfmt.json",
+      "oxfmt.config.mjs",
+    })
 
     local has_dprint = has_upwards({ "dprint.json" })
     local has_biome = has_upwards({ "biome.json", "biome.jsonc" })
@@ -53,19 +59,25 @@ return {
       ".stylelintrc.mjs",
     })
     local function pick_js_formatter(bufnr)
+      if has_oxfmt(bufnr) then
+        return { "oxfmt" }
+      end
+
       if has_dprint(bufnr) then
         return { "dprint" }
       end
+
       if has_biome(bufnr) then
         return { "biome" }
       end
+
       if has_prettier(bufnr) then
         return { "eslint_d", "prettier" }
       end
+
       -- No config found -> still okay; prettier as default
       return { "eslint_d", "prettier" }
     end
-
     opts.formatters_by_ft.astro = function(bufnr)
       return pick_js_formatter(bufnr)
       -- OR if you truly want "LSP only", do:
