@@ -1,14 +1,14 @@
 return {
   {
     "svermeulen/vim-easyclip",
-    config = function()
-      -- Enable default mappings
-      vim.g.EasyClipEnableDefaultMappings = 1
+    dependencies = {
+      "tpope/vim-repeat",
+    },
 
-      -- Optional: enable system clipboard integration
-      vim.g.EasyClipUseSystemClipboard = 1
-
-      -- Optional: better paste behavior
+    init = function()
+      -- These must be set before EasyClip loads.
+      vim.g.EasyClipUseYankDefaults = 1
+      vim.g.EasyClipUsePasteDefaults = 1
       vim.g.EasyClipUsePasteToggleDefaults = 1
     end,
   },

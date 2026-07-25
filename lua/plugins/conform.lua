@@ -20,7 +20,7 @@ return {
     opts.formatters_by_ft = opts.formatters_by_ft or {}
     opts.formatters_by_ft.lua = { "stylua" }
 
-    opts.format_on_save = opts.format_on_save or true
+    -- opts.format_on_save = opts.format_on_save or true
 
     local has_dprint = has_upwards({ "dprint.json" })
     local has_biome = has_upwards({ "biome.json", "biome.jsonc" })

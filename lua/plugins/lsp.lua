@@ -1,51 +1,27 @@
-local function ts_root(fname)
-  local matches = vim.fs.find({ "tsconfig.json", "jsconfig.json" }, {
-    path = vim.fs.dirname(fname),
-    upward = true,
-  })
-
-  for _, config in ipairs(matches) do
-    local root = vim.fs.dirname(config)
-
-    -- Prefer package roots in monorepos.
-    if root:match("/packages/[^/]+$") or root:match("/apps/[^/]+$") or root:match("/libs/[^/]+$") then
-      return root
-    end
-  end
-
-  -- Fallback for normal non-monorepo projects:
-  local config = matches[1]
-  if config then
-    return vim.fs.dirname(config)
-  end
-
-  return nil
-end
-
 return {
   -- tools
-  { "mason-org/mason.nvim", opts = {} },
+  -- { "mason-org/mason.nvim", opts = {} },
 
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        "lua_ls",
-        "eslint",
-        "cssls",
-        "tailwindcss",
-        "html",
-        "ts_ls",
-        "biome",
-        "stylelint_lsp",
-      },
-      -- automatic_enable = true, -- default is enabled
-    },
-    dependencies = {
-      "mason-org/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
-  },
+  -- {
+  --   "mason-org/mason-lspconfig.nvim",
+  --   opts = {
+  --     ensure_installed = {
+  --       "lua_ls",
+  --       "eslint",
+  --       "cssls",
+  --       "tailwindcss",
+  --       "html",
+  --       "ts_ls",
+  --       "biome",
+  --       "stylelint_lsp",
+  --     },
+  --     -- automatic_enable = true, -- default is enabled
+  --   },
+  --   dependencies = {
+  --     "mason-org/mason.nvim",
+  --     "neovim/nvim-lspconfig",
+  --   },
+  -- },
 
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -56,6 +32,8 @@ return {
         -- If you want Lua formatting via stylua instead of lua_ls:
         -- "stylua",
       },
+
+      run_on_start = false,
     },
   },
 
@@ -182,41 +160,46 @@ return {
           },
         },
 
+        vtsls = {
+          -- root_dir = ts_root,
+          single_file_support = true,
+        },
+
         -- vtsls = { enabled = false },
         -- ts_ls = { enabled = false },
         -- tsserver = { enabled = false },
 
-        ts_ls = {
-          init_options = {
-            maxTsServerMemory = 8192,
-          },
-          root_dir = ts_root,
-          single_file_support = false,
-          settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "literal",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-          },
-        },
+        -- ts_ls = {
+        --   init_options = {
+        --     maxTsServerMemory = 8192,
+        --   },
+        --   root_dir = ts_root,
+        --   single_file_support = false,
+        --   settings = {
+        --     typescript = {
+        --       inlayHints = {
+        --         includeInlayParameterNameHints = "literal",
+        --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        --         includeInlayFunctionParameterTypeHints = true,
+        --         includeInlayVariableTypeHints = false,
+        --         includeInlayPropertyDeclarationTypeHints = true,
+        --         includeInlayFunctionLikeReturnTypeHints = true,
+        --         includeInlayEnumMemberValueHints = true,
+        --       },
+        --     },
+        --     javascript = {
+        --       inlayHints = {
+        --         includeInlayParameterNameHints = "all",
+        --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        --         includeInlayFunctionParameterTypeHints = true,
+        --         includeInlayVariableTypeHints = true,
+        --         includeInlayPropertyDeclarationTypeHints = true,
+        --         includeInlayFunctionLikeReturnTypeHints = true,
+        --         includeInlayEnumMemberValueHints = true,
+        --       },
+        --     },
+        --   },
+        -- },
 
         html = {},
 
@@ -250,11 +233,11 @@ return {
     },
   },
 
-  {
-    "nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
-  },
+  -- {
+  --   "nvim-cmp",
+  --   dependencies = { "hrsh7th/cmp-emoji" },
+  --   opts = function(_, opts)
+  --     table.insert(opts.sources, { name = "emoji" })
+  --   end,
+  -- },
 }
