@@ -38,6 +38,17 @@ vim.opt.formatoptions:append({ "r" })
 
 vim.opt.clipboard = "unnamedplus"
 
+vim.opt.laststatus = 3
+vim.opt.fillchars:append({
+  horiz = "━",
+  horizup = "━",
+  horizdown = "━",
+  vert = "┃",
+  vertleft = "┃",
+  vertright = "┃",
+  verthoriz = "╋",
+})
+
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "win32yank-wsl",

@@ -6,3 +6,35 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- local function set_split_highlights()
+--   local hl = vim.api.nvim_set_hl
+--
+--   hl(0, "WinSeparator", {
+--     fg = "#AAAAAA",
+--     bg = "NONE",
+--     bold = true,
+--   })
+--
+--   hl(0, "VertSplit", {
+--     fg = "#AAAAAA",
+--     bg = "NONE",
+--     bold = true,
+--   })
+--
+--   -- Useful if Neo-tree is one side of the split
+--   hl(0, "NeoTreeWinSeparator", {
+--     fg = "#AAAAAA",
+--     bg = "NONE",
+--     bold = true,
+--   })
+-- end
+--
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   callback = function()
+--     vim.schedule(set_split_highlights)
+--   end,
+-- })
+--
+-- -- Apply immediately too
+-- vim.schedule(set_split_highlights)

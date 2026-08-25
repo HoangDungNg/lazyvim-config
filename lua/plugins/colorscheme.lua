@@ -17,6 +17,11 @@ return {
       },
 
       overrides = {
+        WinSeparator = {
+          fg = "#AAAAAA",
+          bg = "none",
+          bold = true,
+        },
         -- Neo-tree: calm / low-contrast
         NeoTreeNormal = {
           fg = "#8A8A8A",
@@ -54,6 +59,14 @@ return {
         NeoTreeGitIgnored = {
           fg = "#505050",
         },
+        -- Neo-tree specific floating windows
+        NeoTreeFloatNormal = { fg = "#CCCCCC", bg = "#1A1A1A" },
+        NeoTreeFloatBorder = { fg = "#505050", bg = "none" },
+        NeoTreeFloatTitle = { fg = "#888888", bg = "none" },
+
+        NormalFloat = { fg = "#FFFFFF", bg = "#1A1A1A" },
+        FloatBorder = { fg = "#505050", bg = "#1A1A1A" },
+        FloatTitle = { fg = "#888888", bg = "#1A1A1A" },
 
         -- Indent guides
         SnacksIndent = {
