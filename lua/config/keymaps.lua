@@ -59,6 +59,11 @@ keymap.set("n", "sj", "<C-w>j")
 vim.keymap.set("n", "gi", "<C-i>", { noremap = true, desc = "Jump forward" })
 vim.keymap.set("n", "go", "<C-o>", { noremap = true, desc = "Jump backward" })
 
+-- Copilot actions
+vim.keymap.set("i", "<C-l>", function()
+  require("copilot.suggestion").accept()
+end, { desc = "Accept Copilot suggestion" })
+
 -- Diagnostics
 keymap.set("n", "<C-j>", function()
   vim.diagnostic.goto_next()

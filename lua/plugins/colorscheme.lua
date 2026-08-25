@@ -1,53 +1,75 @@
 return {
   {
-    "AlexvZyl/nordic.nvim",
+    "datsfilipe/vesper.nvim",
     lazy = false,
     priority = 1000,
+
     opts = {
-      -- Nordic options
-      transparent = {
-        bg = true, -- transparent editor background
-        float = true, -- transparent floating windows
+      -- 1. Enable transparency here
+      transparent = true,
+
+      italics = {
+        comments = true,
+        keywords = true,
+        functions = true,
+        strings = true,
+        variables = true,
       },
-      italic_comments = true,
 
-      -- Make functions/variables/identifiers/comments italic
-      on_highlight = function(highlights, _palette)
-        local function italic(group)
-          highlights[group] = highlights[group] or {}
-          highlights[group].italic = true
-        end
+      overrides = {
+        -- Neo-tree: calm / low-contrast
+        NeoTreeNormal = {
+          fg = "#8A8A8A",
+          bg = "none", -- 2. Set to "none" so the sidebar is also transparent
+        },
+        NeoTreeNormalNC = {
+          fg = "#707070",
+          bg = "none", -- 3. Set to "none" here as well
+        },
+        NeoTreeDirectoryName = {
+          fg = "#8A9A96",
+        },
+        NeoTreeDirectoryIcon = {
+          fg = "#65736F",
+        },
+        NeoTreeFileName = {
+          fg = "#888888",
+        },
+        NeoTreeFileIcon = {
+          fg = "#707070",
+        },
+        NeoTreeRootName = {
+          fg = "#A0A0A0",
+          bold = true,
+        },
+        NeoTreeIndentMarker = {
+          fg = "#333333",
+        },
+        NeoTreeExpander = {
+          fg = "#555555",
+        },
+        NeoTreeCursorLine = {
+          bg = "#1C1C1C", -- This is fine to keep as it only highlights the current line
+        },
+        NeoTreeGitIgnored = {
+          fg = "#505050",
+        },
 
-        -- Vim highlight groups
-        italic("Function")
-        italic("Identifier")
-        italic("Variable") -- some setups use this group
-        italic("Comment")
-
-        -- Treesitter groups (common)
-        italic("@function")
-        italic("@function.call")
-        italic("@function.method")
-        italic("@method")
-        italic("@identifier")
-        italic("@variable")
-        italic("@variable.member")
-        italic("@property")
-        italic("@comment")
-
-        -- LSP semantic token groups (common)
-        italic("@lsp.type.function")
-        italic("@lsp.type.method")
-        italic("@lsp.type.variable")
-        italic("@lsp.type.parameter")
-        italic("@lsp.type.property")
-      end,
+        -- Indent guides
+        SnacksIndent = {
+          fg = "#282828",
+        },
+        -- Current scope / bracket nesting guide
+        SnacksIndentScope = {
+          fg = "#484848",
+        },
+      },
     },
-    config = function(_, opts)
-      require("nordic").setup(opts)
-      -- either of these works; load() is recommended by nordic's README
-      require("nordic").load()
-      -- vim.cmd([[colorscheme nordic]])
-    end,
+  },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "vesper",
+    },
   },
 }
