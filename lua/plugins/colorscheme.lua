@@ -76,6 +76,21 @@ return {
         SnacksIndentScope = {
           fg = "#484848",
         },
+
+        -- Markdown code blocks
+        RenderMarkdownCode = {
+          bg = "#171717",
+        },
+        RenderMarkdownCodeBorder = {
+          bg = "#171717",
+        },
+        RenderMarkdownCodeInline = {
+          bg = "#252525",
+        },
+        RenderMarkdownCodeInfo = {
+          fg = "#A0A0A0",
+          bg = "#171717",
+        },
       },
     },
   },
